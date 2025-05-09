@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "artworks",
+  "info": {
+    "singularName": "artwork",
+    "pluralName": "artworks",
+    "displayName": "Artwork"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "art_title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "art_title"
+    },
+    "art_description": {
+      "type": "richtext"
+    },
+    "art_image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "model3D": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "exhibition": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::exhibition.exhibition",
+      "inversedBy": "artworks"
+    },
+    "isActive": {
+      "type": "boolean"
+    }
+  }
+}

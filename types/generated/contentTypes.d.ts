@@ -373,6 +373,79 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiArtworkArtwork extends Struct.CollectionTypeSchema {
+  collectionName: 'artworks';
+  info: {
+    displayName: 'Artwork';
+    pluralName: 'artworks';
+    singularName: 'artwork';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    art_description: Schema.Attribute.RichText;
+    art_image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    art_title: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    exhibition: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::exhibition.exhibition'
+    >;
+    isActive: Schema.Attribute.Boolean;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::artwork.artwork'
+    > &
+      Schema.Attribute.Private;
+    model3D: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'art_title'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiExhibitionExhibition extends Struct.CollectionTypeSchema {
+  collectionName: 'exhibitions';
+  info: {
+    description: '';
+    displayName: 'Exhibition';
+    pluralName: 'exhibitions';
+    singularName: 'exhibition';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    artworks: Schema.Attribute.Relation<'oneToMany', 'api::artwork.artwork'>;
+    coverImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    endDate: Schema.Attribute.Date;
+    exb_title: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::exhibition.exhibition'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'exb_title'>;
+    startDate: Schema.Attribute.Date;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -882,6 +955,8 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::artwork.artwork': ApiArtworkArtwork;
+      'api::exhibition.exhibition': ApiExhibitionExhibition;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
