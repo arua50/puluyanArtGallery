@@ -4,7 +4,7 @@ export default [
   {
     name: 'strapi::cors',
     config: {
-      enabled: true,
+      enabled: false,
       origin: ['http://localhost:5173'], // Add your frontend URL here
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
       headers: ['Content-Type', 'Authorization', 'Range'],
