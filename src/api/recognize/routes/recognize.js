@@ -7,8 +7,7 @@ module.exports = {
       path: '/recognize',
       handler: 'recognize.recognize',
       config: {
-        policies: [],
-        middlewares: [],
+        auth: false, // set to true if you want auth
       },
     },
   ],

@@ -1,56 +1,58 @@
 'use strict';
-const Jimp = require('jimp');
 const fs = require('fs');
 const path = require('path');
+const tf = require('@tensorflow/tfjs-node');
+const { createCanvas, loadImage } = require('canvas');
+
+let model;
+
+async function loadModel() {
+  if (!model) {
+    model = await tf.loadLayersModel('file://./model/model.json');
+  }
+  return model;
+}
 
 module.exports = {
   async recognize(ctx) {
     const { files } = ctx.request;
-    const uploadedImage = files?.image;
 
-    if (!uploadedImage) {
+    if (!files || !files.image) {
       return ctx.badRequest('No image uploaded');
     }
 
-    try {
-      const uploaded = await Jimp.read(uploadedImage.path);
+    const imagePath = files.image.filepath;
+    const image = await loadImage(imagePath);
 
-      // Load all artworks from your Strapi collection
-      const artworks = await strapi.entityService.findMany('api::artwork.artwork', {
-        populate: ['image'],
-      });
+    const canvas = createCanvas(224, 224);
+    const ctx2d = canvas.getContext('2d');
+    ctx2d.drawImage(image, 0, 0, 224, 224);
 
-      let bestMatch = null;
-      let minDistance = Infinity;
+    const tensor = tf.browser.fromPixels(canvas)
+      .toFloat()
+      .div(255.0)
+      .expandDims();
 
-      for (const art of artworks) {
-        const imageUrl = art.image?.url || art.image?.data?.attributes?.url;
-        if (!imageUrl) continue;
+    const model = await loadModel();
+    const prediction = model.predict(tensor);
+    const predictionIndex = prediction.argMax(-1).dataSync()[0];
 
-        const localImagePath = path.join(__dirname, `../../../../public${imageUrl}`);
-        if (!fs.existsSync(localImagePath)) continue;
+    // Optional: You can map label index to actual artwork names
+    const labels = ['odessa', 'couple'];
+    const predictedLabel = labels[predictionIndex];
 
-        const dbImage = await Jimp.read(localImagePath);
-        const distance = Jimp.distance(uploaded, dbImage); // 0 is identical, 1 is completely different
+    // Search in Strapi DB
+    const artwork = await strapi.db.query('api::artwork.artwork').findOne({
+      where: { slug: predictedLabel },
+    });
 
-        if (distance < minDistance) {
-          minDistance = distance;
-          bestMatch = art;
-        }
-      }
-
-      if (!bestMatch || minDistance > 0.6) {
-        return ctx.notFound('No matching artwork found');
-      }
-
-      return {
-        title: bestMatch.art_title,
-        artist: bestMatch.artist || 'Unknown',
-        description: bestMatch.art_description,
-      };
-    } catch (err) {
-      console.error('Recognition error:', err);
-      return ctx.internalServerError('Error during recognition');
+    if (!artwork) {
+      return ctx.notFound('Artwork recognized but not found in database');
     }
+
+    return {
+      title: artwork.art_title,
+      description: artwork.art_description,
+      };
   },
 };
