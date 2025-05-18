@@ -25,7 +25,7 @@ export default ({ env }) => {
     postgres: {
       connection: {
         connectionString: env('DATABASE_URL'),
-        host: env('DATABASE_HOST', 'dpg-d0eq0qh5pdvs73autc2g-a'),
+        host: env('DATABASE_HOST', 'dpg-d0eq0qh5pdvs73autc2g-a.singapore-postgres.render.com'),
         port: env.int('DATABASE_PORT', 5432),
         database: env('DATABASE_NAME', 'puluyandb_3548'),
         user: env('DATABASE_USERNAME', 'puluyanuser'),
