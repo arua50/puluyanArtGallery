@@ -30,13 +30,13 @@ export default ({ env }) => {
         database: env('DATABASE_NAME', 'puluyandb_3548'),
         user: env('DATABASE_USERNAME', 'puluyanuser'),
         password: env('DATABASE_PASSWORD', 'L28ifoAXQ3UztVxJfp8fsJrqJ1Ry1RCz'),
-        ssl: env.bool('DATABASE_SSL', false) && {
+        ssl: env.bool('DATABASE_SSL', true) && {
           key: env('DATABASE_SSL_KEY', undefined),
           cert: env('DATABASE_SSL_CERT', undefined),
           ca: env('DATABASE_SSL_CA', undefined),
           capath: env('DATABASE_SSL_CAPATH', undefined),
           cipher: env('DATABASE_SSL_CIPHER', undefined),
-          rejectUnauthorized: env.bool('DATABASE_SSL_REJECT_UNAUTHORIZED', true),
+          rejectUnauthorized: env.bool('DATABASE_SSL_REJECT_UNAUTHORIZED', false),
         },
         schema: env('DATABASE_SCHEMA', 'public'),
       },

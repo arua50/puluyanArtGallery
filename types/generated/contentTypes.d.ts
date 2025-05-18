@@ -376,6 +376,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiArtworkArtwork extends Struct.CollectionTypeSchema {
   collectionName: 'artworks';
   info: {
+    description: '';
     displayName: 'Artwork';
     pluralName: 'artworks';
     singularName: 'artwork';
@@ -387,6 +388,7 @@ export interface ApiArtworkArtwork extends Struct.CollectionTypeSchema {
     art_description: Schema.Attribute.RichText;
     art_image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     art_title: Schema.Attribute.String;
+    artist: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
