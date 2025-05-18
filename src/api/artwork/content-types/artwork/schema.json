@@ -49,9 +49,6 @@
       "target": "api::exhibition.exhibition",
       "inversedBy": "artworks"
     },
-    "isActive": {
-      "type": "boolean"
-    },
     "artist": {
       "type": "string"
     }

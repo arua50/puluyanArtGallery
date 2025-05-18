@@ -40,6 +40,13 @@
       "relation": "oneToMany",
       "target": "api::artwork.artwork",
       "mappedBy": "exhibition"
+    },
+    "exb_status": {
+      "type": "enumeration",
+      "enum": [
+        "active",
+        "archive"
+      ]
     }
   }
 }

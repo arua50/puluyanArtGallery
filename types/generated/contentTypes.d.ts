@@ -396,7 +396,6 @@ export interface ApiArtworkArtwork extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::exhibition.exhibition'
     >;
-    isActive: Schema.Attribute.Boolean;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -432,6 +431,7 @@ export interface ApiExhibitionExhibition extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     endDate: Schema.Attribute.Date;
+    exb_status: Schema.Attribute.Enumeration<['active', 'archive']>;
     exb_title: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
