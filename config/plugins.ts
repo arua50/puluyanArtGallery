@@ -1,7 +1,7 @@
 export default () => ({
   upload: {
     config: {
-      sizeLimit: 100 * 1024 * 1024, // 100 MB
+      sizeLimit: 1000, // 100 MB
 
       // This is optional if you want to restrict or allow additional MIME types
       mimeTypes: [

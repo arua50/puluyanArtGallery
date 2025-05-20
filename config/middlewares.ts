@@ -5,7 +5,7 @@ module.exports = [
   {
     name: 'strapi::cors',
     config: {
-      origin: ['http://localhost:5173'], // update to your frontend domain
+      origin: ['https://puluyanartgallery.onrender.com'], // update to your frontend domain
       headers: '*',
     },
   },
