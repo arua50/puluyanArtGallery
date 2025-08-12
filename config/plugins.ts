@@ -1,9 +1,18 @@
-export default () => ({
+export default ({ env }) => ({
   upload: {
     config: {
-      sizeLimit: 1000, // 100 MB
-
-      // This is optional if you want to restrict or allow additional MIME types
+      provider: "cloudinary",
+      providerOptions: {
+        cloud_name: env("CLOUDINARY_NAME"),
+        api_key: env("CLOUDINARY_KEY"),
+        api_secret: env("CLOUDINARY_SECRET"),
+      },
+      actionOptions: {
+        upload: {
+          sizeLimit: 100 * 1024 * 1024, // 100 MB
+        },
+        delete: {},
+      },
       mimeTypes: [
         'image/jpeg',
         'image/png',
@@ -11,8 +20,8 @@ export default () => ({
         'video/mp4',
         'audio/mpeg',
         'application/zip',
-        'model/gltf-binary', // .glb
-        'model/gltf+json'    // .gltf
+        'model/gltf-binary',
+        'model/gltf+json'
       ],
     },
   },
