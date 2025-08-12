@@ -403,6 +403,7 @@ export interface ApiArtworkArtwork extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     model3D: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    price: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'art_title'>;
     updatedAt: Schema.Attribute.DateTime;

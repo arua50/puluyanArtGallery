@@ -51,6 +51,9 @@
     },
     "artist": {
       "type": "string"
+    },
+    "price": {
+      "type": "decimal"
     }
   }
 }
