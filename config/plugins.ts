@@ -6,6 +6,7 @@ export default ({ env }) => ({
         cloud_name: env("CLOUDINARY_NAME"),
         api_key: env("CLOUDINARY_KEY"),
         api_secret: env("CLOUDINARY_SECRET"),
+         folder: "strapi-uploads",
       },
       actionOptions: {
         upload: {
