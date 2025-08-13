@@ -21,7 +21,9 @@ export default ({ env }) => ({
         'audio/mpeg',
         'application/zip',
         'model/gltf-binary',
-        'model/gltf+json'
+        'model/gltf+json',
+        'model/obj', 
+        'application/octet-stream'
       ],
     },
   },
