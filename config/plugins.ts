@@ -10,6 +10,7 @@ export default ({ env }) => ({
       actionOptions: {
         upload: {
           sizeLimit: 100 * 1024 * 1024, // 100 MB
+          resource_type: "raw",
         },
         delete: {},
       },
@@ -23,6 +24,7 @@ export default ({ env }) => ({
         'model/gltf-binary',
         'model/gltf+json',
         'model/obj', 
+        'text/plain',
         'application/octet-stream'
       ],
     },
