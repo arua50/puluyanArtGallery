@@ -22,16 +22,8 @@
     "art_description": {
       "type": "richtext"
     },
-    "art_image": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+    "artist": {
+      "type": "string"
     },
     "model3D": {
       "type": "media",
@@ -43,15 +35,6 @@
         "videos",
         "audios"
       ]
-    },
-    "exhibition": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::exhibition.exhibition",
-      "inversedBy": "artworks"
-    },
-    "artist": {
-      "type": "string"
     },
     "saleStatus": {
       "type": "enumeration",
@@ -75,6 +58,23 @@
         }
       },
       "required": true
+    },
+    "art_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "exhibition": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::exhibition.exhibition",
+      "inversedBy": "artworks"
     }
   }
 }

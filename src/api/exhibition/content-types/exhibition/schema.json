@@ -36,12 +36,6 @@
         "audios"
       ]
     },
-    "artworks": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::artwork.artwork",
-      "mappedBy": "exhibition"
-    },
     "exb_status": {
       "type": "enumeration",
       "default": "active",
@@ -49,6 +43,12 @@
         "active",
         "archive"
       ]
+    },
+    "artworks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::artwork.artwork",
+      "mappedBy": "exhibition"
     }
   }
 }
