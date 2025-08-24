@@ -10,6 +10,7 @@
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "art_title": {
       "type": "string"
@@ -52,8 +53,28 @@
     "artist": {
       "type": "string"
     },
+    "saleStatus": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "onSale",
+        "notForSale",
+        "sold"
+      ]
+    },
     "price": {
-      "type": "decimal"
+      "type": "decimal",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "saleStatus"
+            },
+            "onSale"
+          ]
+        }
+      },
+      "required": true
     }
   }
 }

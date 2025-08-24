@@ -403,8 +403,10 @@ export interface ApiArtworkArtwork extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     model3D: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    price: Schema.Attribute.Decimal;
+    price: Schema.Attribute.Decimal & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    saleStatus: Schema.Attribute.Enumeration<['onSale', 'notForSale', 'sold']> &
+      Schema.Attribute.Required;
     slug: Schema.Attribute.UID<'art_title'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -432,7 +434,8 @@ export interface ApiExhibitionExhibition extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     endDate: Schema.Attribute.Date;
-    exb_status: Schema.Attribute.Enumeration<['active', 'archive']>;
+    exb_status: Schema.Attribute.Enumeration<['active', 'archive']> &
+      Schema.Attribute.DefaultTo<'active'>;
     exb_title: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
